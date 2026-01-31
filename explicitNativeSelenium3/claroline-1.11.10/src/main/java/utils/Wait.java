@@ -1,0 +1,58 @@
+package utils;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
+
+public class Wait {
+	
+	protected WebDriverWait wait;
+	
+	public Wait(WebDriver driver) {
+		wait = new WebDriverWait(driver, 30);
+	}
+	
+	public WebElement waitVisibility(WebElement element) {
+		return wait.until(ExpectedConditions.visibilityOf(element));
+	}
+	
+	public WebElement waitVisibility(By locator) {
+		return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+	}
+	
+	public WebElement waitClickability(WebElement element) {
+		return wait.until(ExpectedConditions.elementToBeClickable(element));
+	}
+
+	public WebElement waitClickability(By locator) {
+		return wait.until(ExpectedConditions.elementToBeClickable(locator));
+	}
+
+	public void waitAlert() {
+		wait.until(ExpectedConditions.alertIsPresent());
+	}
+	public boolean waitForTextToBe(By locator, String text) {
+		return wait.until(ExpectedConditions.textToBe(locator, text));
+	}
+
+	public boolean waitForAttributeToBe(By locator, String attr, String val) {
+		return wait.until(ExpectedConditions.attributeToBe(locator, attr, val));
+	}
+
+	public WebElement waitClickabilityRefreshed(By locator) {
+		return wait.until(ExpectedConditions.refreshed(ExpectedConditions.elementToBeClickable(locator)));
+	}
+
+	public WebElement waitVisibilityRefreshed(By locator) {
+		return wait.until(ExpectedConditions.refreshed(ExpectedConditions.visibilityOfElementLocated(locator)));
+	}
+
+	public void waitStaleness(WebElement element) {
+		wait.until(ExpectedConditions.stalenessOf(element));
+	}
+
+}

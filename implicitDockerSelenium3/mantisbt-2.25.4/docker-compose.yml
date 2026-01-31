@@ -1,0 +1,19 @@
+version: "3.8"
+
+services:
+  mantisbt:
+    image: xlrl/mantisbt:2.25.4
+    ports:
+      - "8989:80"
+    links:
+      - mysql
+    restart: always
+
+  mysql:
+    image: mariadb:11.3.2
+    environment:
+      - MYSQL_ROOT_PASSWORD=e2eW3Bt3s71nGB3nchM4rK
+      - MYSQL_DATABASE=bugtracker
+      - MYSQL_USER=mantisbt
+      - MYSQL_PASSWORD=mantisbt
+    restart: always

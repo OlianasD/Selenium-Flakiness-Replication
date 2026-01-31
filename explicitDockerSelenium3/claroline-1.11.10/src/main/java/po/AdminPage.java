@@ -1,0 +1,90 @@
+package po;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+import utils.Wait;
+
+public class AdminPage extends ClarolinePage{
+
+	@FindBy(linkText="Create user")
+	private WebElement createUserLink;
+	@FindBy(linkText="Create course")
+	private WebElement createCourseLink;
+	@FindBy(id="search_user")
+	private WebElement userSearchBox;
+	@FindBy(css="input[type='submit']")
+	private WebElement userSearchButton;
+	@FindBy(id="search_course")
+	private WebElement courseSearchBox;
+	@FindBy(css="form[name='searchCourse'] > input[type='submit']")
+	private WebElement courseSearchButton;
+	@FindBy(linkText="User list")
+	private WebElement userListLink;
+	@FindBy(linkText="Advanced")
+	private WebElement advancedSearchButton;
+	@FindBy(css="form[name='searchCourse'] > small > a")
+	private WebElement advancedCourseSearchButton;
+
+	protected Wait wait;
+	
+	public AdminPage(WebDriver driver){
+		super(driver);
+		PageFactory.initElements(driver, this);
+		wait = new Wait(driver);
+	}
+	
+	public AdminAddNewUserPage addUser() throws InterruptedException{
+		wait.waitClickability(createUserLink);
+		createUserLink.click();
+		AdminAddNewUserPage page = new AdminAddNewUserPage(driver);
+		return page;
+	}
+	
+	public AdminUsersPage searchUser(String userName){
+		wait.waitClickability(userSearchBox);
+		userSearchBox.sendKeys(userName);
+		wait.waitClickability(userSearchButton);
+		userSearchButton.click();
+		AdminUsersPage page = new AdminUsersPage(driver);
+		return page;
+	}
+	
+	public CourseCreatePage addCourse() throws InterruptedException{
+		wait.waitClickability(createCourseLink);
+		createCourseLink.click();
+		CourseCreatePage page = new CourseCreatePage(driver);
+		return page;
+	}
+	
+	public AdminCoursesPage searchCourse(String courseName) throws InterruptedException{
+		wait.waitClickability(courseSearchBox);
+		courseSearchBox.sendKeys(courseName);
+		wait.waitClickability(courseSearchButton);
+		courseSearchButton.click();
+		AdminCoursesPage page = new AdminCoursesPage(driver);
+		return page;
+	}
+	
+	public AdminUsersPage goToUsersList(){
+		wait.waitClickability(userListLink);
+		userListLink.click();
+		AdminUsersPage page = new AdminUsersPage(driver);
+		return page;
+	}
+	
+	public AdvancedUserSearchPage advancedSearch(){
+		wait.waitClickability(advancedSearchButton);
+		advancedSearchButton.click();
+		AdvancedUserSearchPage page = new AdvancedUserSearchPage(driver);
+		return page;
+	}
+	
+	public AdvancedCourseSearchPage advancedCourseSearch(){
+		wait.waitClickability(advancedCourseSearchButton);
+		advancedCourseSearchButton.click();
+		AdvancedCourseSearchPage page = new AdvancedCourseSearchPage(driver);
+		return page;
+	}
+}
